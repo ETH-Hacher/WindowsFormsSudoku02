@@ -6,7 +6,6 @@ using System.Drawing;
 using System.Linq;
 using System.Reflection.Emit;
 using System.Windows.Forms;
-using HtmlAgilityPack;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -236,19 +235,38 @@ namespace WindowsFormsSudoku02
             StartNewGame();
         }
 
-        private static async Task<string> CallUrl(string fullUrl)
-        {
-            fullUrl = "https://www.zeit.de/sudoku";
-            HttpClient client = new HttpClient();
-            var htmlContent = await client.GetStringAsync(fullUrl);
-            return htmlContent;
-        }
-
-
-
         private void LoadZeitSudoku_Click(object sender, EventArgs e)
         {
+            var currentDate = DateTime.Now;
+            var currentYear = currentDate.Year;
+            var currentMonth = currentDate.Month;
+            var currentDay = currentDate.Day;
+            var ZeitSudokuLevel = 0;
 
+            // Construct the URL based on the selected level and the current date
+            string sudokuUrl = $"https://sudoku.zeit.de/sudoku/level/{ZeitSudokuLevel}/{currentYear}-{currentMonth}-{currentDay}";
+            
+            HttpClient client = new HttpClient();
+            string htmlContent = client.GetStringAsync(sudokuUrl).GetAwaiter().GetResult();
+
+
+
+
+
+            if (easyZeitLvl.Checked)
+                ZeitSudokuLevel = 2;
+            else if (normalZeitLvl.Checked)
+                ZeitSudokuLevel = 3;
+            else if (hardZeitLvl.Checked)
+                ZeitSudokuLevel = 4;
+            else if (veryHardZeitLvl.Checked)
+                ZeitSudokuLevel = 5;
+            else if (extremeHardZeitLvl.Checked)
+                ZeitSudokuLevel = 6;
+            else
+            {
+                MessageBox.Show("Please select a difficulty level");
+            }
         }
     }
 }

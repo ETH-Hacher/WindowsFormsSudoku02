@@ -60,6 +60,7 @@
     <Compile Include="SudokuCell.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ZeitDeSudoku.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
