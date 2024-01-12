@@ -35,15 +35,15 @@
             this.beginnerLevel = new System.Windows.Forms.RadioButton();
             this.IntermediateLevel = new System.Windows.Forms.RadioButton();
             this.AdvancedLevel = new System.Windows.Forms.RadioButton();
-            this.label1 = new System.Windows.Forms.Label();
+            this.difficulty = new System.Windows.Forms.Label();
             this.LoadZeitSudoku = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
+            this.difficultyZeitDe = new System.Windows.Forms.Label();
             this.hardZeitLvl = new System.Windows.Forms.RadioButton();
             this.normalZeitLvl = new System.Windows.Forms.RadioButton();
             this.easyZeitLvl = new System.Windows.Forms.RadioButton();
             this.extremeHardZeitLvl = new System.Windows.Forms.RadioButton();
             this.veryHardZeitLvl = new System.Windows.Forms.RadioButton();
-            this.button1 = new System.Windows.Forms.Button();
+            this.solveItButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // panel1
@@ -128,15 +128,15 @@
             this.AdvancedLevel.Text = "Advanced";
             this.AdvancedLevel.UseVisualStyleBackColor = true;
             // 
-            // label1
+            // difficulty
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
-            this.label1.Location = new System.Drawing.Point(679, 253);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(129, 31);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "Difficulty";
+            this.difficulty.AutoSize = true;
+            this.difficulty.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
+            this.difficulty.Location = new System.Drawing.Point(679, 253);
+            this.difficulty.Name = "difficulty";
+            this.difficulty.Size = new System.Drawing.Size(129, 31);
+            this.difficulty.TabIndex = 8;
+            this.difficulty.Text = "Difficulty";
             // 
             // LoadZeitSudoku
             // 
@@ -150,15 +150,15 @@
             this.LoadZeitSudoku.UseVisualStyleBackColor = true;
             this.LoadZeitSudoku.Click += new System.EventHandler(this.LoadZeitSudoku_Click);
             // 
-            // label2
+            // difficultyZeitDe
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
-            this.label2.Location = new System.Drawing.Point(679, 424);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(129, 31);
-            this.label2.TabIndex = 13;
-            this.label2.Text = "Difficulty";
+            this.difficultyZeitDe.AutoSize = true;
+            this.difficultyZeitDe.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
+            this.difficultyZeitDe.Location = new System.Drawing.Point(679, 424);
+            this.difficultyZeitDe.Name = "difficultyZeitDe";
+            this.difficultyZeitDe.Size = new System.Drawing.Size(129, 31);
+            this.difficultyZeitDe.TabIndex = 13;
+            this.difficultyZeitDe.Text = "Difficulty";
             // 
             // hardZeitLvl
             // 
@@ -225,31 +225,31 @@
             this.veryHardZeitLvl.Text = "Very Hard";
             this.veryHardZeitLvl.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // solveItButton
             // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(254)));
-            this.button1.ForeColor = System.Drawing.Color.Black;
-            this.button1.Location = new System.Drawing.Point(655, 581);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(207, 40);
-            this.button1.TabIndex = 16;
-            this.button1.Text = "Solve it!";
-            this.button1.UseVisualStyleBackColor = true;
+            this.solveItButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(254)));
+            this.solveItButton.ForeColor = System.Drawing.Color.Black;
+            this.solveItButton.Location = new System.Drawing.Point(655, 581);
+            this.solveItButton.Name = "solveItButton";
+            this.solveItButton.Size = new System.Drawing.Size(207, 40);
+            this.solveItButton.TabIndex = 16;
+            this.solveItButton.Text = "Solve it!";
+            this.solveItButton.UseVisualStyleBackColor = true;
             // 
             // SudokuGame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(879, 633);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.solveItButton);
             this.Controls.Add(this.extremeHardZeitLvl);
             this.Controls.Add(this.veryHardZeitLvl);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.difficultyZeitDe);
             this.Controls.Add(this.hardZeitLvl);
             this.Controls.Add(this.normalZeitLvl);
             this.Controls.Add(this.easyZeitLvl);
             this.Controls.Add(this.LoadZeitSudoku);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.difficulty);
             this.Controls.Add(this.AdvancedLevel);
             this.Controls.Add(this.IntermediateLevel);
             this.Controls.Add(this.beginnerLevel);
@@ -275,15 +275,15 @@
         private System.Windows.Forms.RadioButton beginnerLevel;
         private System.Windows.Forms.RadioButton IntermediateLevel;
         private System.Windows.Forms.RadioButton AdvancedLevel;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label difficulty;
         private System.Windows.Forms.Button LoadZeitSudoku;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label difficultyZeitDe;
         private System.Windows.Forms.RadioButton hardZeitLvl;
         private System.Windows.Forms.RadioButton normalZeitLvl;
         private System.Windows.Forms.RadioButton easyZeitLvl;
         private System.Windows.Forms.RadioButton extremeHardZeitLvl;
         private System.Windows.Forms.RadioButton veryHardZeitLvl;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button solveItButton;
     }
 }
 

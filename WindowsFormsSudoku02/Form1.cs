@@ -10,10 +10,12 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Text;
+using System.Text.Json;
 using System.Net;
 using System.IO;
+using System.Threading;
+using System.Net.Http.Json;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
-
 
 namespace WindowsFormsSudoku02
 {
@@ -40,7 +42,8 @@ namespace WindowsFormsSudoku02
                 hintsCount = 15;
             else
             {
-                MessageBox.Show("Please select a difficulty level");
+                beginnerLevel.Checked = true;
+                hintsCount = 45;
             }
             ShowRandomValuesHints(hintsCount);
         }
@@ -152,7 +155,7 @@ namespace WindowsFormsSudoku02
                 // return to the previous cell and allocate it with a different number
                 if (numsLeft.Count < 1)
                 {
-                    cells[i,j].Value = 0;
+                    cells[i, j].Value = 0;
                     return false;
                 }
                 // Take a random number from the numbers left in the list
@@ -238,19 +241,7 @@ namespace WindowsFormsSudoku02
         private void LoadZeitSudoku_Click(object sender, EventArgs e)
         {
             var currentDate = DateTime.Now;
-            var currentYear = currentDate.Year;
-            var currentMonth = currentDate.Month;
-            var currentDay = currentDate.Day;
             var ZeitSudokuLevel = 0;
-
-            // Construct the URL based on the selected level and the current date
-            string sudokuUrl = $"https://sudoku.zeit.de/sudoku/level/{ZeitSudokuLevel}/{currentYear}-{currentMonth}-{currentDay}";
-            
-            HttpClient client = new HttpClient();
-            string htmlContent = client.GetStringAsync(sudokuUrl).GetAwaiter().GetResult();
-
-
-
 
 
             if (easyZeitLvl.Checked)
@@ -265,7 +256,29 @@ namespace WindowsFormsSudoku02
                 ZeitSudokuLevel = 6;
             else
             {
-                MessageBox.Show("Please select a difficulty level");
+                ZeitSudokuLevel = 2;
+                easyZeitLvl.Checked = true;
+            }
+
+
+            HttpClient client = new HttpClient();
+            // Construct the URL based on the selected level and the current date
+            var sudokuUrl = client.GetFromJsonAsync<ZeitDeSudoku>($"https://sudoku.zeit.de/sudoku/level/{ZeitSudokuLevel}/{currentDate.Year}-{currentDate.Month}-{currentDate.Day}").Result;
+
+            for (int i = 0; i < 81; i++)
+            {
+                SudokuCell cell = cells[i % 9, i / 9];
+                cell.Clear();
+                cell.BackColor = ((i % 9 / 3) + (i / 9 / 3)) % 2 == 0 ? SystemColors.Control : Color.LightGray;
+                cell.FlatStyle = FlatStyle.Popup;
+                cell.ForeColor = Color.Blue;
+
+                if (int.TryParse(sudokuUrl.game[i].ToString().Trim('.'), out int val))
+                {
+                    cell.Value = val;
+                    cell.Text = val.ToString();
+                    cell.IsLocked = true;
+                }
             }
         }
     }
