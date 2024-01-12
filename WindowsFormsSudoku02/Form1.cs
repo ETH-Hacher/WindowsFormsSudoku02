@@ -223,7 +223,7 @@ namespace WindowsFormsSudoku02
         private void LoadZeitSudoku_Click(object sender, EventArgs e)
         {
             var currentDate = DateTime.Now;
-            var ZeitSudokuLevel = 0;
+            int ZeitSudokuLevel;
 
             if (easyZeitLvl.Checked)
                 ZeitSudokuLevel = 2;
