@@ -51,14 +51,11 @@ namespace WindowsFormsSudoku02
 
         private void ShowRandomValuesHints(int hintsCount)
         {
-            // Show value in random cells
-            // The hints count is based on the level player choose
             for (int i = 0; i < hintsCount; i++)
             {
                 var rX = random.Next(9);
                 var rY = random.Next(9);
 
-                // Style the hint cells differently and
                 cells[rX, rY].Text = cells[rX, rY].Value.ToString();
                 cells[rX, rY].FlatAppearance.BorderColor = Color.DarkRed;
                 cells[rX, rY].ForeColor = Color.Blue;
@@ -160,7 +157,6 @@ namespace WindowsFormsSudoku02
             return true;
         }
 
-
         private bool IsValidNumber(int value, int x, int y)
         {
             for (int i = 0; i < 9; i++)
@@ -226,7 +222,7 @@ namespace WindowsFormsSudoku02
         private void LoadZeitSudoku_Click(object sender, EventArgs e)
         {
             var currentDate = DateTime.Now;
-            var ZeitSudokuLevel = 0;
+            int ZeitSudokuLevel;
 
             if (easyZeitLvl.Checked)
                 ZeitSudokuLevel = 2;
