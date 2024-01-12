@@ -10,10 +10,12 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Text;
+using System.Text.Json;
 using System.Net;
 using System.IO;
+using System.Threading;
+using System.Net.Http.Json;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
-
 
 namespace WindowsFormsSudoku02
 {
@@ -30,8 +32,7 @@ namespace WindowsFormsSudoku02
         {
             LoadValues();
 
-            int hintsCount = 0;
-            // Assign the hints count based on the Difficulty player chosen
+            int hintsCount;
             if (beginnerLevel.Checked)
                 hintsCount = 45;
             else if (IntermediateLevel.Checked)
@@ -40,12 +41,14 @@ namespace WindowsFormsSudoku02
                 hintsCount = 15;
             else
             {
-                MessageBox.Show("Please select a difficulty level");
+                beginnerLevel.Checked = true;
+                hintsCount = 45;
             }
             ShowRandomValuesHints(hintsCount);
         }
 
         Random random = new Random();
+
         private void ShowRandomValuesHints(int hintsCount)
         {
             // Show value in random cells
@@ -56,7 +59,6 @@ namespace WindowsFormsSudoku02
                 var rY = random.Next(9);
 
                 // Style the hint cells differently and
-                // lock the cell so that player can't edit the value
                 cells[rX, rY].Text = cells[rX, rY].Value.ToString();
                 cells[rX, rY].FlatAppearance.BorderColor = Color.DarkRed;
                 cells[rX, rY].ForeColor = Color.Blue;
@@ -85,13 +87,8 @@ namespace WindowsFormsSudoku02
                         Y = j
                     };
 
-                    // Add border color
                     cells[i, j].FlatAppearance.BorderColor = Color.Black;
-
-                    // Assign key press event for each cells
                     cells[i, j].KeyPress += Cell_keyPressed;
-
-                    // Add the cells to the panel
                     panel1.Controls.Add(cells[i, j]);
                 }
             }
@@ -101,26 +98,24 @@ namespace WindowsFormsSudoku02
         {
             var cell = sender as SudokuCell;
 
-            // Do nothing if the cell is locked
             if (cell.IsLocked)
                 return;
 
             // Add the pressed key value in the cell only if it is a number
             if (int.TryParse(e.KeyChar.ToString(), out int value))
             {
-                // Clear the cell value if pressed key is zero
                 if (value == 0)
                     cell.Clear();
                 else
+                {
                     cell.Text = value.ToString();
-
-                cell.ForeColor = SystemColors.ControlDarkDark;
+                    cell.ForeColor = Color.DarkOliveGreen;
+                }
             }
         }
 
         private void LoadValues()
         {
-            // Clear the Values in each cell
             foreach (var cell in cells)
             {
                 cell.Value = 0;
@@ -136,11 +131,10 @@ namespace WindowsFormsSudoku02
             if (++j > 8)
             {
                 j = 0;
-
-                // Exit if the line ends
-                if (++i > 8)
+                if (++i > 8)                // If the row ends move to the next row
                     return true;
             }
+
             int value;
             var numsLeft = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 
@@ -152,18 +146,13 @@ namespace WindowsFormsSudoku02
                 // return to the previous cell and allocate it with a different number
                 if (numsLeft.Count < 1)
                 {
-                    cells[i,j].Value = 0;
+                    cells[i, j].Value = 0;
                     return false;
                 }
                 // Take a random number from the numbers left in the list
                 value = numsLeft[random.Next(0, numsLeft.Count)];
-
-                // Set the value in the cell
                 cells[i, j].Value = value;
-
-                // Remove the allocated value from the list
                 numsLeft.Remove(value);
-
             }
             while
             (!IsValidNumber(value, i, j) || !FindValueForNextCell(i, j));
@@ -224,7 +213,6 @@ namespace WindowsFormsSudoku02
         {
             foreach (var cell in cells)
             {
-                // Clear the cell only if it is not locked
                 if (!cell.IsLocked)
                     cell.Clear();
             }
@@ -238,20 +226,7 @@ namespace WindowsFormsSudoku02
         private void LoadZeitSudoku_Click(object sender, EventArgs e)
         {
             var currentDate = DateTime.Now;
-            var currentYear = currentDate.Year;
-            var currentMonth = currentDate.Month;
-            var currentDay = currentDate.Day;
             var ZeitSudokuLevel = 0;
-
-            // Construct the URL based on the selected level and the current date
-            string sudokuUrl = $"https://sudoku.zeit.de/sudoku/level/{ZeitSudokuLevel}/{currentYear}-{currentMonth}-{currentDay}";
-            
-            HttpClient client = new HttpClient();
-            string htmlContent = client.GetStringAsync(sudokuUrl).GetAwaiter().GetResult();
-
-
-
-
 
             if (easyZeitLvl.Checked)
                 ZeitSudokuLevel = 2;
@@ -265,7 +240,32 @@ namespace WindowsFormsSudoku02
                 ZeitSudokuLevel = 6;
             else
             {
-                MessageBox.Show("Please select a difficulty level");
+                ZeitSudokuLevel = 2;
+                easyZeitLvl.Checked = true;
+            }
+
+
+            HttpClient client = new HttpClient();
+
+            // Construct the URL based on the selected level and the current date
+            var sudokuUrl = client.GetFromJsonAsync<ZeitDeSudoku>($"https://sudoku.zeit.de/sudoku/level/{ZeitSudokuLevel}/{currentDate.Year}-{currentDate.Month}-{currentDate.Day}").Result;
+
+            for (int i = 0; i < 81; i++)
+            {
+                var X = i % 9;
+                var Y = i / 9;
+                SudokuCell cell = cells[X, Y];
+                cell.Clear();
+                cell.BackColor = ((X / 3) + (Y / 3)) % 2 == 0 ? SystemColors.Control : Color.LightGray;
+                cell.FlatStyle = FlatStyle.Popup;
+                cell.ForeColor = Color.Blue;
+
+                if (int.TryParse(sudokuUrl.game[i].ToString().Trim('.'), out int val))
+                {
+                    cell.Value = val;
+                    cell.Text = val.ToString();
+                    cell.IsLocked = true;
+                }
             }
         }
     }
