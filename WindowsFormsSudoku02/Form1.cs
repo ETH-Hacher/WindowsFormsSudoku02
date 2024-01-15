@@ -21,7 +21,7 @@ namespace WindowsFormsSudoku02
 {
     public partial class SudokuGame : Form
     {
-
+        private bool isZeitSudoku = false;
 
         public SudokuGame()
         {
@@ -32,19 +32,31 @@ namespace WindowsFormsSudoku02
 
         private void StartNewGame()
         {
+            isZeitSudoku = false;
+
             LoadValues();
 
             int hintsCount;
             if (beginnerLevel.Checked)
+            {
                 hintsCount = 45;
+                hintsButtonCount = 3;
+            }
             else if (IntermediateLevel.Checked)
+            {
                 hintsCount = 30;
+                hintsButtonCount = 4;
+            }
             else if (AdvancedLevel.Checked)
+            {
                 hintsCount = 15;
+                hintsButtonCount = 5;
+            }
             else
             {
                 beginnerLevel.Checked = true;
                 hintsCount = 45;
+                hintsButtonCount = 3;
             }
             ShowRandomValuesHints(hintsCount);
         }
@@ -102,9 +114,7 @@ namespace WindowsFormsSudoku02
             if (selectedCell == null || selectedCell.IsLocked)
                 return;
 
-            var f = int.TryParse(btn.Text, out int value);
-
-            if (f)
+            if (int.TryParse(btn.Text, out int value))
             {
                 selectedCell.Text = btn.Text;
                 selectedCell.ForeColor = Color.Green;
@@ -222,6 +232,10 @@ namespace WindowsFormsSudoku02
 
         private void ChkButton_Click(object sender, EventArgs e)
         {
+            chkButtonCount--;
+            if (chkButtonCount == 0)
+                ChkButton.Enabled = false;
+
             var wrongCells = new List<SudokuCell>();
             // Check if there are remaining attempts for using the Check button
             if (chkButtonCount > 0)
@@ -231,32 +245,22 @@ namespace WindowsFormsSudoku02
                     if (!cell.IsLocked)
                     {
                         if (!string.Equals(cell.Value.ToString(), cell.Text))
-                            wrongCells.Add(cell);
+                        {
+                            cell.ForeColor = Color.Red;
+                        }
                         else
                         {
                             cell.Font = new Font(cell.Font, FontStyle.Bold);
-                            cell.ForeColor = Color.Goldenrod;
+                            cell.ForeColor = Color.Beige;
                         }
                     }
                 }
-                // Check if the inputs are wrong or the player wins the game
-                if (wrongCells.Any())
-                    wrongCells.ForEach(x => x.ForeColor = Color.Red);
 
-                else
+                if (isFullyFilled && cellTextNotEmptyOrNull)
+                {
                     MessageBox.Show("Congratulations! You won");
-                // Decrement the Check button count
-                chkButtonCount--;
-
-                // Disable the Check button after 3 attempts
-                if (chkButtonCount == 0)
-                    ChkButton.Enabled = false;
+                }
             }
-            else
-            {
-                MessageBox.Show("You've used all your Check attempts!");
-            }
-
         }
 
         private void ClrButton_Click(object sender, EventArgs e)
@@ -273,25 +277,42 @@ namespace WindowsFormsSudoku02
             StartNewGame();
         }
 
+        int ZeitSudokuLevel;
         private void LoadZeitSudoku_Click(object sender, EventArgs e)
         {
+            isZeitSudoku = true;
             var currentDate = DateTime.Now;
-            int ZeitSudokuLevel;
 
             if (easyZeitLvl.Checked)
+            {
                 ZeitSudokuLevel = 2;
+                hintsButtonCount = 3;
+            }
             else if (normalZeitLvl.Checked)
+            {
                 ZeitSudokuLevel = 3;
+                hintsButtonCount = 4;
+            }
             else if (hardZeitLvl.Checked)
+            {
                 ZeitSudokuLevel = 4;
+                hintsButtonCount = 5;
+            }
             else if (veryHardZeitLvl.Checked)
+            {
                 ZeitSudokuLevel = 5;
+                hintsButtonCount = 6;
+            }
             else if (extremeHardZeitLvl.Checked)
+            {
                 ZeitSudokuLevel = 6;
+                hintsButtonCount = 7;
+            }
             else
             {
                 ZeitSudokuLevel = 2;
                 easyZeitLvl.Checked = true;
+                hintsButtonCount = 3;
             }
 
 
@@ -351,9 +372,126 @@ namespace WindowsFormsSudoku02
             }
         }
 
-        private void solveItButton_Click(object sender, EventArgs e)
+        public bool SolveSudoku()
         {
+            for (int row = 0; row < 9; row++)
+            {
+                for (int col = 0; col < 9; col++)
+                {
+                    // search an empty cell
+                    if (cells[row, col].Value == 0)
+                    {
+                        // try possible numbers
+                        for (int number = 1; number <= 9; number++)
+                        {
+                            if (IsValid(row, col, number))
+                            {
+                                cells[row, col].Value = number;
 
+                                if (SolveSudoku())
+                                { // start backtracking recursively
+                                    return true;
+                                }
+                                else
+                                { // if not a solution, empty the cell and continue
+                                    cells[row, col].Value = 0;
+                                }
+                            }
+                        }
+                        cells[row, col].Font = new Font(DefaultFont.FontFamily, 20, FontStyle.Bold);
+                        cells[row, col].ForeColor = Color.Goldenrod;
+
+                        return false;
+                    }
+                }
+            }
+            return true; // sudoku solved
+        }
+
+        public bool IsValid(int row, int col, int num)
+        {
+            // Check the line
+            for (int d = 0; d < 9; d++)
+            {
+                if (cells[row, d].Value == num)
+                {
+                    return false;
+                }
+            }
+
+            // Check the column
+            for (int r = 0; r < 9; r++)
+            {
+                if (cells[r, col].Value == num)
+                {
+                    return false;
+                }
+            }
+
+            // Check the box
+            int sqrt = (int)Math.Sqrt(9);
+            int boxRowStart = row - row % sqrt;
+            int boxColStart = col - col % sqrt;
+
+            for (int r = boxRowStart; r < boxRowStart + sqrt; r++)
+            {
+                for (int d = boxColStart; d < boxColStart + sqrt; d++)
+                {
+                    if (cells[r, d].Value == num)
+                    {
+                        return false;
+                    }
+                }
+            }
+            // If there is no clash, it's safe
+            return true;
+        }
+
+        private void SolveItButton_Click(object sender, EventArgs e)
+        {
+            if (!isZeitSudoku)
+            {
+                if (SolveSudoku())
+                {
+                    // Update the UI with the solved Sudoku
+                    for (int row = 0; row < 9; row++)
+                    {
+                        for (int col = 0; col < 9; col++)
+                        {
+                            cells[row, col].Text = cells[row, col].Value.ToString();
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No solution found for the given Sudoku.");
+                }
+            }
+            else
+            {
+                var currentDate = DateTime.Now;
+                HttpClient client = new HttpClient();
+                var sudokuUrl = client.GetFromJsonAsync<ZeitDeSudoku>($"https://sudoku.zeit.de/sudoku/level/{ZeitSudokuLevel}/{currentDate.Year}-{currentDate.Month}-{currentDate.Day}").Result;
+
+
+                for (int i = 0; i < 81; i++)
+                {
+                    var X = i % 9;
+                    var Y = i / 9;
+                    SudokuCell cell = cells[X, Y];
+                    cell.Clear();
+                    cell.BackColor = ((X / 3) + (Y / 3)) % 2 == 0 ? SystemColors.Control : Color.LightGray;
+                    cell.FlatStyle = FlatStyle.Popup;
+                    cell.ForeColor = Color.Blue;
+
+                    if (int.TryParse(sudokuUrl.game[i].ToString().Trim('.'), out int val))
+                    {
+                        cell.Value = val;
+                        cell.Text = val.ToString();
+                        cell.IsLocked = false;
+                    }
+                }
+            }
         }
     }
 }

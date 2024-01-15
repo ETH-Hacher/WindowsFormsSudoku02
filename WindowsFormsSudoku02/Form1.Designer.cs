@@ -43,7 +43,7 @@
             this.easyZeitLvl = new System.Windows.Forms.RadioButton();
             this.extremeHardZeitLvl = new System.Windows.Forms.RadioButton();
             this.veryHardZeitLvl = new System.Windows.Forms.RadioButton();
-            this.solveItButton = new System.Windows.Forms.Button();
+            this.SolveItButton = new System.Windows.Forms.Button();
             this.btn1 = new System.Windows.Forms.Button();
             this.btn2 = new System.Windows.Forms.Button();
             this.btn3 = new System.Windows.Forms.Button();
@@ -235,17 +235,17 @@
             this.veryHardZeitLvl.Text = "Very Hard";
             this.veryHardZeitLvl.UseVisualStyleBackColor = true;
             // 
-            // solveItButton
+            // SolveItButton
             // 
-            this.solveItButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(254)));
-            this.solveItButton.ForeColor = System.Drawing.Color.Black;
-            this.solveItButton.Location = new System.Drawing.Point(660, 663);
-            this.solveItButton.Name = "solveItButton";
-            this.solveItButton.Size = new System.Drawing.Size(207, 40);
-            this.solveItButton.TabIndex = 16;
-            this.solveItButton.Text = "Solve it!";
-            this.solveItButton.UseVisualStyleBackColor = true;
-            this.solveItButton.Click += new System.EventHandler(this.solveItButton_Click);
+            this.SolveItButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(254)));
+            this.SolveItButton.ForeColor = System.Drawing.Color.Black;
+            this.SolveItButton.Location = new System.Drawing.Point(660, 663);
+            this.SolveItButton.Name = "SolveItButton";
+            this.SolveItButton.Size = new System.Drawing.Size(207, 40);
+            this.SolveItButton.TabIndex = 16;
+            this.SolveItButton.Text = "Solve it!";
+            this.SolveItButton.UseVisualStyleBackColor = true;
+            this.SolveItButton.Click += new System.EventHandler(this.SolveItButton_Click);
             // 
             // btn1
             // 
@@ -382,7 +382,7 @@
             this.Controls.Add(this.btn3);
             this.Controls.Add(this.btn2);
             this.Controls.Add(this.btn1);
-            this.Controls.Add(this.solveItButton);
+            this.Controls.Add(this.SolveItButton);
             this.Controls.Add(this.extremeHardZeitLvl);
             this.Controls.Add(this.veryHardZeitLvl);
             this.Controls.Add(this.difficultyZeitDe);
@@ -422,7 +422,7 @@
         private System.Windows.Forms.RadioButton easyZeitLvl;
         private System.Windows.Forms.RadioButton extremeHardZeitLvl;
         private System.Windows.Forms.RadioButton veryHardZeitLvl;
-        private System.Windows.Forms.Button solveItButton;
+        private System.Windows.Forms.Button SolveItButton;
         private System.Windows.Forms.Button btn1;
         private System.Windows.Forms.Button btn2;
         private System.Windows.Forms.Button btn3;
