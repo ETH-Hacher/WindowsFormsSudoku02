@@ -21,6 +21,8 @@ namespace WindowsFormsSudoku02
 {
     public partial class SudokuGame : Form
     {
+
+
         public SudokuGame()
         {
             InitializeComponent();
@@ -86,30 +88,62 @@ namespace WindowsFormsSudoku02
 
                     cells[i, j].FlatAppearance.BorderColor = Color.Black;
                     cells[i, j].KeyPress += Cell_keyPressed;
+                    cells[i, j].MouseClick += Cell_ClickedOn;
                     panel1.Controls.Add(cells[i, j]);
                 }
             }
         }
 
-        private void Cell_keyPressed(object sender, KeyPressEventArgs e)
-        {
-            var cell = sender as SudokuCell;
 
-            if (cell.IsLocked)
+
+        private void NumsBtn_MouseClick(object sender, MouseEventArgs e)
+        {
+            Button btn = sender as Button;
+            if (selectedCell == null || selectedCell.IsLocked)
                 return;
 
+            var f = int.TryParse(btn.Text, out int value);
+
+            if (f)
+            {
+                selectedCell.Text = btn.Text;
+                selectedCell.ForeColor = Color.Green;
+            }
+        }
+
+        private SudokuCell selectedCell;
+
+        private void Cell_ClickedOn(object sender, MouseEventArgs e)
+        {
+            selectedCell = sender as SudokuCell;
+
+            if (selectedCell.IsLocked)
+            {
+                selectedCell = null;
+                return;
+            }
+        }
+
+        private void Cell_keyPressed(object sender, KeyPressEventArgs e)
+        {
+            if (selectedCell is null)
+            {
+                return;
+            }
+
+            if (e.KeyChar == '0')
+            {
+                selectedCell.Clear();
+                return;
+            }
             // Add the pressed key value in the cell only if it is a number
             if (int.TryParse(e.KeyChar.ToString(), out int value))
             {
-                if (value == 0)
-                    cell.Clear();
-                else
-                {
-                    cell.Text = value.ToString();
-                    cell.ForeColor = Color.DarkOliveGreen;
-                }
+                selectedCell.Text = value.ToString();
+                selectedCell.ForeColor = Color.Green;
             }
         }
+
 
         private void LoadValues()
         {
@@ -183,26 +217,46 @@ namespace WindowsFormsSudoku02
             return true;
         }
 
+        private int chkButtonCount = 3;
+        private int hintsButtonCount = 3;
+
         private void ChkButton_Click(object sender, EventArgs e)
         {
             var wrongCells = new List<SudokuCell>();
-
-            // Find all the wrong inputs
-            foreach (var cell in cells)
+            // Check if there are remaining attempts for using the Check button
+            if (chkButtonCount > 0)
             {
-                if (!string.Equals(cell.Value.ToString(), cell.Text))
-                    wrongCells.Add(cell);
-            }
+                foreach (var cell in cells)
+                {
+                    if (!cell.IsLocked)
+                    {
+                        if (!string.Equals(cell.Value.ToString(), cell.Text))
+                            wrongCells.Add(cell);
+                        else
+                        {
+                            cell.Font = new Font(cell.Font, FontStyle.Bold);
+                            cell.ForeColor = Color.Goldenrod;
+                        }
+                    }
+                }
+                // Check if the inputs are wrong or the player wins the game
+                if (wrongCells.Any())
+                    wrongCells.ForEach(x => x.ForeColor = Color.Red);
 
-            // Check if the inputs are wrong or the player wins the game
-            if (wrongCells.Any())
-            {
-                // Highlight the wrong inputs 
-                wrongCells.ForEach(x => x.ForeColor = Color.Red);
-                MessageBox.Show("Wrong inputs");
+                else
+                    MessageBox.Show("Congratulations! You won");
+                // Decrement the Check button count
+                chkButtonCount--;
+
+                // Disable the Check button after 3 attempts
+                if (chkButtonCount == 0)
+                    ChkButton.Enabled = false;
             }
             else
-                MessageBox.Show("Congratulations! You won the game");
+            {
+                MessageBox.Show("You've used all your Check attempts!");
+            }
+
         }
 
         private void ClrButton_Click(object sender, EventArgs e)
@@ -263,6 +317,43 @@ namespace WindowsFormsSudoku02
                     cell.IsLocked = true;
                 }
             }
+        }
+
+        private void HintsBtn_Click(object sender, EventArgs e)
+        {
+            // Check if there are remaining attempts for using the Hints button
+            if (hintsButtonCount > 0)
+            {
+                var emptyCells = cells.Cast<SudokuCell>().Where(cell => !cell.IsLocked && string.IsNullOrEmpty(cell.Text)).ToList();
+
+                if (emptyCells.Any())
+                {
+                    var randomEmptyCell = emptyCells[random.Next(emptyCells.Count)];
+                    randomEmptyCell.Text = randomEmptyCell.Value.ToString();
+                    randomEmptyCell.Font = new Font(randomEmptyCell.Font, FontStyle.Bold);
+                    randomEmptyCell.ForeColor = Color.Brown;
+
+                    // Decrement the Hints button count
+                    hintsButtonCount--;
+
+                    // Disable the Hints button after 3 attempts
+                    if (hintsButtonCount == 0)
+                        HintsBtn.Enabled = false;
+                }
+                else
+                {
+                    MessageBox.Show("No empty cells to provide hints!");
+                }
+            }
+            else
+            {
+                MessageBox.Show("You've used all your Hints attempts!");
+            }
+        }
+
+        private void solveItButton_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
