@@ -59,17 +59,19 @@
             // panel1
             // 
             this.panel1.Location = new System.Drawing.Point(24, 19);
+            this.panel1.MaximumSize = new System.Drawing.Size(550, 550);
+            this.panel1.MinimumSize = new System.Drawing.Size(550, 550);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(600, 600);
+            this.panel1.Size = new System.Drawing.Size(550, 550);
             this.panel1.TabIndex = 0;
             // 
             // ChkButton
             // 
             this.ChkButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
             this.ChkButton.ForeColor = System.Drawing.Color.Black;
-            this.ChkButton.Location = new System.Drawing.Point(655, 19);
+            this.ChkButton.Location = new System.Drawing.Point(609, 19);
             this.ChkButton.Name = "ChkButton";
-            this.ChkButton.Size = new System.Drawing.Size(207, 67);
+            this.ChkButton.Size = new System.Drawing.Size(207, 51);
             this.ChkButton.TabIndex = 1;
             this.ChkButton.Text = "Check Input";
             this.ChkButton.UseVisualStyleBackColor = true;
@@ -79,9 +81,9 @@
             // 
             this.ClrButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
             this.ClrButton.ForeColor = System.Drawing.Color.Black;
-            this.ClrButton.Location = new System.Drawing.Point(655, 101);
+            this.ClrButton.Location = new System.Drawing.Point(609, 76);
             this.ClrButton.Name = "ClrButton";
-            this.ClrButton.Size = new System.Drawing.Size(207, 58);
+            this.ClrButton.Size = new System.Drawing.Size(207, 46);
             this.ClrButton.TabIndex = 2;
             this.ClrButton.Text = "Clear Input";
             this.ClrButton.UseVisualStyleBackColor = true;
@@ -91,7 +93,7 @@
             // 
             this.NewGameButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
             this.NewGameButton.ForeColor = System.Drawing.Color.DarkGreen;
-            this.NewGameButton.Location = new System.Drawing.Point(655, 204);
+            this.NewGameButton.Location = new System.Drawing.Point(609, 176);
             this.NewGameButton.Name = "NewGameButton";
             this.NewGameButton.Size = new System.Drawing.Size(207, 63);
             this.NewGameButton.TabIndex = 3;
@@ -103,8 +105,8 @@
             // 
             this.beginnerLevel.AutoSize = true;
             this.beginnerLevel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
-            this.beginnerLevel.ForeColor = System.Drawing.Color.Green;
-            this.beginnerLevel.Location = new System.Drawing.Point(685, 304);
+            this.beginnerLevel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(55)))), ((int)(((byte)(76)))));
+            this.beginnerLevel.Location = new System.Drawing.Point(639, 303);
             this.beginnerLevel.Name = "beginnerLevel";
             this.beginnerLevel.Size = new System.Drawing.Size(97, 24);
             this.beginnerLevel.TabIndex = 4;
@@ -117,7 +119,7 @@
             this.IntermediateLevel.AutoSize = true;
             this.IntermediateLevel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
             this.IntermediateLevel.ForeColor = System.Drawing.Color.Blue;
-            this.IntermediateLevel.Location = new System.Drawing.Point(685, 327);
+            this.IntermediateLevel.Location = new System.Drawing.Point(639, 326);
             this.IntermediateLevel.Name = "IntermediateLevel";
             this.IntermediateLevel.Size = new System.Drawing.Size(131, 24);
             this.IntermediateLevel.TabIndex = 5;
@@ -130,7 +132,7 @@
             this.AdvancedLevel.AutoSize = true;
             this.AdvancedLevel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
             this.AdvancedLevel.ForeColor = System.Drawing.Color.Red;
-            this.AdvancedLevel.Location = new System.Drawing.Point(685, 350);
+            this.AdvancedLevel.Location = new System.Drawing.Point(639, 349);
             this.AdvancedLevel.Name = "AdvancedLevel";
             this.AdvancedLevel.Size = new System.Drawing.Size(108, 24);
             this.AdvancedLevel.TabIndex = 6;
@@ -142,7 +144,7 @@
             // 
             this.difficulty.AutoSize = true;
             this.difficulty.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
-            this.difficulty.Location = new System.Drawing.Point(679, 270);
+            this.difficulty.Location = new System.Drawing.Point(633, 269);
             this.difficulty.Name = "difficulty";
             this.difficulty.Size = new System.Drawing.Size(129, 31);
             this.difficulty.TabIndex = 8;
@@ -152,7 +154,7 @@
             // 
             this.LoadZeitSudoku.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
             this.LoadZeitSudoku.ForeColor = System.Drawing.Color.Black;
-            this.LoadZeitSudoku.Location = new System.Drawing.Point(655, 393);
+            this.LoadZeitSudoku.Location = new System.Drawing.Point(609, 416);
             this.LoadZeitSudoku.Name = "LoadZeitSudoku";
             this.LoadZeitSudoku.Size = new System.Drawing.Size(207, 58);
             this.LoadZeitSudoku.TabIndex = 9;
@@ -164,7 +166,7 @@
             // 
             this.difficultyZeitDe.AutoSize = true;
             this.difficultyZeitDe.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
-            this.difficultyZeitDe.Location = new System.Drawing.Point(679, 454);
+            this.difficultyZeitDe.Location = new System.Drawing.Point(633, 500);
             this.difficultyZeitDe.Name = "difficultyZeitDe";
             this.difficultyZeitDe.Size = new System.Drawing.Size(129, 31);
             this.difficultyZeitDe.TabIndex = 13;
@@ -175,7 +177,7 @@
             this.hardZeitLvl.AutoSize = true;
             this.hardZeitLvl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
             this.hardZeitLvl.ForeColor = System.Drawing.Color.IndianRed;
-            this.hardZeitLvl.Location = new System.Drawing.Point(685, 534);
+            this.hardZeitLvl.Location = new System.Drawing.Point(639, 580);
             this.hardZeitLvl.Name = "hardZeitLvl";
             this.hardZeitLvl.Size = new System.Drawing.Size(68, 24);
             this.hardZeitLvl.TabIndex = 12;
@@ -188,7 +190,7 @@
             this.normalZeitLvl.AutoSize = true;
             this.normalZeitLvl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
             this.normalZeitLvl.ForeColor = System.Drawing.Color.Blue;
-            this.normalZeitLvl.Location = new System.Drawing.Point(685, 511);
+            this.normalZeitLvl.Location = new System.Drawing.Point(639, 557);
             this.normalZeitLvl.Name = "normalZeitLvl";
             this.normalZeitLvl.Size = new System.Drawing.Size(87, 24);
             this.normalZeitLvl.TabIndex = 11;
@@ -201,7 +203,7 @@
             this.easyZeitLvl.AutoSize = true;
             this.easyZeitLvl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
             this.easyZeitLvl.ForeColor = System.Drawing.Color.Green;
-            this.easyZeitLvl.Location = new System.Drawing.Point(685, 488);
+            this.easyZeitLvl.Location = new System.Drawing.Point(639, 534);
             this.easyZeitLvl.Name = "easyZeitLvl";
             this.easyZeitLvl.Size = new System.Drawing.Size(68, 24);
             this.easyZeitLvl.TabIndex = 10;
@@ -214,7 +216,7 @@
             this.extremeHardZeitLvl.AutoSize = true;
             this.extremeHardZeitLvl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
             this.extremeHardZeitLvl.ForeColor = System.Drawing.Color.Red;
-            this.extremeHardZeitLvl.Location = new System.Drawing.Point(685, 581);
+            this.extremeHardZeitLvl.Location = new System.Drawing.Point(639, 627);
             this.extremeHardZeitLvl.Name = "extremeHardZeitLvl";
             this.extremeHardZeitLvl.Size = new System.Drawing.Size(143, 24);
             this.extremeHardZeitLvl.TabIndex = 15;
@@ -227,7 +229,7 @@
             this.veryHardZeitLvl.AutoSize = true;
             this.veryHardZeitLvl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
             this.veryHardZeitLvl.ForeColor = System.Drawing.Color.DarkRed;
-            this.veryHardZeitLvl.Location = new System.Drawing.Point(685, 558);
+            this.veryHardZeitLvl.Location = new System.Drawing.Point(639, 604);
             this.veryHardZeitLvl.Name = "veryHardZeitLvl";
             this.veryHardZeitLvl.Size = new System.Drawing.Size(112, 24);
             this.veryHardZeitLvl.TabIndex = 14;
@@ -239,9 +241,9 @@
             // 
             this.SolveItButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(254)));
             this.SolveItButton.ForeColor = System.Drawing.Color.Black;
-            this.SolveItButton.Location = new System.Drawing.Point(660, 663);
+            this.SolveItButton.Location = new System.Drawing.Point(440, 578);
             this.SolveItButton.Name = "SolveItButton";
-            this.SolveItButton.Size = new System.Drawing.Size(207, 40);
+            this.SolveItButton.Size = new System.Drawing.Size(134, 40);
             this.SolveItButton.TabIndex = 16;
             this.SolveItButton.Text = "Solve it!";
             this.SolveItButton.UseVisualStyleBackColor = true;
@@ -251,7 +253,7 @@
             // 
             this.btn1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
             this.btn1.ForeColor = System.Drawing.Color.ForestGreen;
-            this.btn1.Location = new System.Drawing.Point(61, 653);
+            this.btn1.Location = new System.Drawing.Point(44, 636);
             this.btn1.Name = "btn1";
             this.btn1.Size = new System.Drawing.Size(50, 50);
             this.btn1.TabIndex = 17;
@@ -263,7 +265,7 @@
             // 
             this.btn2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
             this.btn2.ForeColor = System.Drawing.Color.ForestGreen;
-            this.btn2.Location = new System.Drawing.Point(117, 653);
+            this.btn2.Location = new System.Drawing.Point(100, 636);
             this.btn2.Name = "btn2";
             this.btn2.Size = new System.Drawing.Size(50, 50);
             this.btn2.TabIndex = 18;
@@ -275,7 +277,7 @@
             // 
             this.btn3.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
             this.btn3.ForeColor = System.Drawing.Color.ForestGreen;
-            this.btn3.Location = new System.Drawing.Point(173, 653);
+            this.btn3.Location = new System.Drawing.Point(156, 636);
             this.btn3.Name = "btn3";
             this.btn3.Size = new System.Drawing.Size(50, 50);
             this.btn3.TabIndex = 19;
@@ -287,7 +289,7 @@
             // 
             this.btn4.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
             this.btn4.ForeColor = System.Drawing.Color.ForestGreen;
-            this.btn4.Location = new System.Drawing.Point(229, 653);
+            this.btn4.Location = new System.Drawing.Point(212, 636);
             this.btn4.Name = "btn4";
             this.btn4.Size = new System.Drawing.Size(50, 50);
             this.btn4.TabIndex = 22;
@@ -299,7 +301,7 @@
             // 
             this.btn5.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
             this.btn5.ForeColor = System.Drawing.Color.ForestGreen;
-            this.btn5.Location = new System.Drawing.Point(285, 653);
+            this.btn5.Location = new System.Drawing.Point(268, 636);
             this.btn5.Name = "btn5";
             this.btn5.Size = new System.Drawing.Size(50, 50);
             this.btn5.TabIndex = 21;
@@ -311,7 +313,7 @@
             // 
             this.btn6.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
             this.btn6.ForeColor = System.Drawing.Color.ForestGreen;
-            this.btn6.Location = new System.Drawing.Point(341, 653);
+            this.btn6.Location = new System.Drawing.Point(324, 636);
             this.btn6.Name = "btn6";
             this.btn6.Size = new System.Drawing.Size(50, 50);
             this.btn6.TabIndex = 20;
@@ -323,7 +325,7 @@
             // 
             this.btn7.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
             this.btn7.ForeColor = System.Drawing.Color.ForestGreen;
-            this.btn7.Location = new System.Drawing.Point(397, 653);
+            this.btn7.Location = new System.Drawing.Point(380, 636);
             this.btn7.Name = "btn7";
             this.btn7.Size = new System.Drawing.Size(56, 50);
             this.btn7.TabIndex = 25;
@@ -335,7 +337,7 @@
             // 
             this.btn8.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
             this.btn8.ForeColor = System.Drawing.Color.ForestGreen;
-            this.btn8.Location = new System.Drawing.Point(459, 653);
+            this.btn8.Location = new System.Drawing.Point(442, 636);
             this.btn8.Name = "btn8";
             this.btn8.Size = new System.Drawing.Size(56, 50);
             this.btn8.TabIndex = 24;
@@ -347,7 +349,7 @@
             // 
             this.btn9.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
             this.btn9.ForeColor = System.Drawing.Color.ForestGreen;
-            this.btn9.Location = new System.Drawing.Point(521, 653);
+            this.btn9.Location = new System.Drawing.Point(504, 636);
             this.btn9.Name = "btn9";
             this.btn9.Size = new System.Drawing.Size(56, 50);
             this.btn9.TabIndex = 23;
@@ -359,9 +361,9 @@
             // 
             this.HintsBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(254)));
             this.HintsBtn.ForeColor = System.Drawing.Color.Black;
-            this.HintsBtn.Location = new System.Drawing.Point(660, 611);
+            this.HintsBtn.Location = new System.Drawing.Point(24, 578);
             this.HintsBtn.Name = "HintsBtn";
-            this.HintsBtn.Size = new System.Drawing.Size(207, 40);
+            this.HintsBtn.Size = new System.Drawing.Size(141, 40);
             this.HintsBtn.TabIndex = 26;
             this.HintsBtn.Text = "Hints!";
             this.HintsBtn.UseVisualStyleBackColor = true;
@@ -371,7 +373,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(879, 715);
+            this.ClientSize = new System.Drawing.Size(839, 698);
             this.Controls.Add(this.HintsBtn);
             this.Controls.Add(this.btn4);
             this.Controls.Add(this.btn7);
@@ -398,8 +400,10 @@
             this.Controls.Add(this.ClrButton);
             this.Controls.Add(this.ChkButton);
             this.Controls.Add(this.panel1);
+            this.MaximumSize = new System.Drawing.Size(855, 737);
+            this.MinimumSize = new System.Drawing.Size(855, 737);
             this.Name = "SudokuGame";
-            this.Text = "0";
+            this.Text = "SuDoKu GaMe";
             this.ResumeLayout(false);
             this.PerformLayout();
 

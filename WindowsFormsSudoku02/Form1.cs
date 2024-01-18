@@ -21,7 +21,7 @@ namespace WindowsFormsSudoku02
 {
     public partial class SudokuGame : Form
     {
-        private bool isZeitSudoku = false;
+        private bool isZeitSudoku;
 
         public SudokuGame()
         {
@@ -41,16 +41,19 @@ namespace WindowsFormsSudoku02
             {
                 hintsCount = 45;
                 hintsButtonCount = 3;
+                chkButtonCount = 3;
             }
             else if (IntermediateLevel.Checked)
             {
                 hintsCount = 30;
                 hintsButtonCount = 4;
+                chkButtonCount = 4;
             }
             else if (AdvancedLevel.Checked)
             {
                 hintsCount = 15;
                 hintsButtonCount = 5;
+                chkButtonCount = 5;
             }
             else
             {
@@ -72,12 +75,12 @@ namespace WindowsFormsSudoku02
 
                 cells[rX, rY].Text = cells[rX, rY].Value.ToString();
                 cells[rX, rY].FlatAppearance.BorderColor = Color.DarkRed;
-                cells[rX, rY].ForeColor = Color.Blue;
+                cells[rX, rY].ForeColor = Color.Blue;   
                 cells[rX, rY].IsLocked = true;
             }
         }
 
-        // 9x9 sudoku board
+
         SudokuCell[,] cells = new SudokuCell[9, 9];
         private void CreateCells()
         {
@@ -160,6 +163,8 @@ namespace WindowsFormsSudoku02
             foreach (var cell in cells)
             {
                 cell.Value = 0;
+                cell.ForeColor = Color.DarkGoldenrod;
+                cell.IsLocked = false;
                 cell.Clear();
             }
             FindValueForNextCell(0, -1);
@@ -227,8 +232,8 @@ namespace WindowsFormsSudoku02
             return true;
         }
 
-        private int chkButtonCount = 3;
-        private int hintsButtonCount = 3;
+        int chkButtonCount = 3;
+        int hintsButtonCount = 3;
 
         private void ChkButton_Click(object sender, EventArgs e)
         {
@@ -251,15 +256,15 @@ namespace WindowsFormsSudoku02
                         else
                         {
                             cell.Font = new Font(cell.Font, FontStyle.Bold);
-                            cell.ForeColor = Color.Beige;
+                            cell.ForeColor = Color.DarkGoldenrod;
                         }
                     }
                 }
 
-                if (isFullyFilled && cellTextNotEmptyOrNull)
-                {
-                    MessageBox.Show("Congratulations! You won");
-                }
+                //if (isFullyFilled && cellTextNotEmptyOrNull)
+                //{
+                //    MessageBox.Show("Congratulations! You won");
+                //}
             }
         }
 
@@ -275,38 +280,45 @@ namespace WindowsFormsSudoku02
         private void NewGameButton_Click(object sender, EventArgs e)
         {
             StartNewGame();
+            ChkButton.Enabled = true;
         }
 
         int ZeitSudokuLevel;
+        
         private void LoadZeitSudoku_Click(object sender, EventArgs e)
         {
             isZeitSudoku = true;
-            var currentDate = DateTime.Now;
+            ChkButton.Enabled = true;
 
             if (easyZeitLvl.Checked)
             {
                 ZeitSudokuLevel = 2;
                 hintsButtonCount = 3;
+                chkButtonCount = 3;
             }
             else if (normalZeitLvl.Checked)
             {
                 ZeitSudokuLevel = 3;
                 hintsButtonCount = 4;
+                chkButtonCount = 4;
             }
             else if (hardZeitLvl.Checked)
             {
                 ZeitSudokuLevel = 4;
                 hintsButtonCount = 5;
+                chkButtonCount = 5;
             }
             else if (veryHardZeitLvl.Checked)
             {
                 ZeitSudokuLevel = 5;
                 hintsButtonCount = 6;
+                chkButtonCount = 6;
             }
             else if (extremeHardZeitLvl.Checked)
             {
                 ZeitSudokuLevel = 6;
                 hintsButtonCount = 7;
+                chkButtonCount = 7;
             }
             else
             {
@@ -315,8 +327,8 @@ namespace WindowsFormsSudoku02
                 hintsButtonCount = 3;
             }
 
-
             HttpClient client = new HttpClient();
+            var currentDate = DateTime.Now;
 
             // Construct the URL based on the selected level and the current date
             var sudokuUrl = client.GetFromJsonAsync<ZeitDeSudoku>($"https://sudoku.zeit.de/sudoku/level/{ZeitSudokuLevel}/{currentDate.Year}-{currentDate.Month}-{currentDate.Day}").Result;
@@ -399,7 +411,8 @@ namespace WindowsFormsSudoku02
                             }
                         }
                         cells[row, col].Font = new Font(DefaultFont.FontFamily, 20, FontStyle.Bold);
-                        cells[row, col].ForeColor = Color.Goldenrod;
+                        if (!cells[row, col].IsLocked)
+                            cells[row, col].ForeColor = Color.DarkGoldenrod;
 
                         return false;
                     }
@@ -469,8 +482,9 @@ namespace WindowsFormsSudoku02
             }
             else
             {
-                var currentDate = DateTime.Now;
                 HttpClient client = new HttpClient();
+                var currentDate = DateTime.Now;
+                // Construct the URL based on the selected level and the current date
                 var sudokuUrl = client.GetFromJsonAsync<ZeitDeSudoku>($"https://sudoku.zeit.de/sudoku/level/{ZeitSudokuLevel}/{currentDate.Year}-{currentDate.Month}-{currentDate.Day}").Result;
 
 
@@ -479,12 +493,15 @@ namespace WindowsFormsSudoku02
                     var X = i % 9;
                     var Y = i / 9;
                     SudokuCell cell = cells[X, Y];
-                    cell.Clear();
-                    cell.BackColor = ((X / 3) + (Y / 3)) % 2 == 0 ? SystemColors.Control : Color.LightGray;
+                    if (!cell.IsLocked)
+                    {
+                        cell.Clear();
+                        cell.ForeColor = Color.DarkGoldenrod;
+                    }
                     cell.FlatStyle = FlatStyle.Popup;
-                    cell.ForeColor = Color.Blue;
+                    cell.BackColor = ((X / 3) + (Y / 3)) % 2 == 0 ? SystemColors.Control : Color.LightGray;
 
-                    if (int.TryParse(sudokuUrl.game[i].ToString().Trim('.'), out int val))
+                    if (int.TryParse(sudokuUrl.solve[i].ToString().Trim('.'), out int val))
                     {
                         cell.Value = val;
                         cell.Text = val.ToString();
