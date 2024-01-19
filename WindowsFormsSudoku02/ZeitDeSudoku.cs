@@ -8,8 +8,8 @@ namespace WindowsFormsSudoku02
 {
     public class ZeitDeSudoku
     {
-        public int id { get; set; }
-        public string game { get; set; }
-        public string solve { get; set; }
+        public int Id { get; set; }
+        public string Game { get; set; }
+        public string Solve { get; set; }
     }
 }
