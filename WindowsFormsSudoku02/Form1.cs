@@ -134,10 +134,19 @@ namespace WindowsFormsSudoku02
         private void Cell_ClickedOn(object sender, MouseEventArgs e)
         {
             selectedCell = sender as SudokuCell;
-            if (selectedCell.IsLocked)
+
+            if (selectedCell.IsLocked || string.IsNullOrEmpty(selectedCell.Text))
             {
-                selectedCell = null;
-                return;
+                ChkCellBtn.Enabled = false;
+                ChkAllBtn.Enabled = false;
+            }
+            else if (cells.Cast<SudokuCell>().All(cell => cell.IsLocked || !string.IsNullOrEmpty(selectedCell.Text)))
+            {
+                ChkAllBtn.Enabled = true;
+            }
+            else
+            {
+                ChkCellBtn.Enabled = true;
             }
         }
 
@@ -149,13 +158,13 @@ namespace WindowsFormsSudoku02
                 return;
             }
 
-            if (e.KeyChar == '0')
+            else if (e.KeyChar == '0')
             {
                 selectedCell.Clear();
                 return;
             }
             // Add the pressed key value in the cell only if it is a number
-            if (int.TryParse(e.KeyChar.ToString(), out int value))
+            else if (int.TryParse(e.KeyChar.ToString(), out int value))
             {
                 selectedCell.Text = value.ToString();
                 selectedCell.ForeColor = Color.ForestGreen;
@@ -239,55 +248,47 @@ namespace WindowsFormsSudoku02
 
         private void ChkCellBtn_Click(object sender, EventArgs e)
         {
-            if (ChkCellBtnCount == 0)
-                ChkCellBtn.Enabled = false;
-
-            if (ChkCellBtnCount > 0)
+            if (!selectedCell.IsLocked && selectedCell != null && !string.IsNullOrEmpty(selectedCell.Text))
             {
-                if (selectedCell != null && selectedCell.Text != "") 
-                {
-                    if (!selectedCell.IsLocked)
-                    {
-                        selectedCell.Font = new Font(DefaultFont.FontFamily, 25, FontStyle.Bold);
-                        ChkCellBtnCount--;
-                        if (!string.Equals(selectedCell.Value.ToString(), selectedCell.Text))
-                            selectedCell.ForeColor = Color.Red;
-                        else
-                            selectedCell.ForeColor = Color.DarkGoldenrod;
-                    }
-                }
+                selectedCell.Font = new Font(DefaultFont.FontFamily, 25, FontStyle.Bold);
+                ChkCellBtnCount--;
+                if (!string.Equals(selectedCell.Value.ToString(), selectedCell.Text))
+                    selectedCell.ForeColor = Color.Red;
                 else
                 {
-                    MessageBox.Show("Please, select an editable Cell");
-                    return;
-                }
+                    selectedCell.ForeColor = Color.DarkGoldenrod;
+                    selectedCell.IsLocked = true;
+                    ChkCellBtn.Enabled = true;
+                }    
             }
+            else if (selectedCell.IsLocked)
+            {
+                MessageBox.Show("Please, select an editable Cell");
+                return;
+            }
+
         }
         private void ChkAllBtn_Click(object sender, EventArgs e)
         {
-            if (ChkAllBtnCount == 0)
-                ChkAllBtn.Enabled = false;
-
-            if (cells.Cast<SudokuCell>().All(cell => cell.IsLocked || string.Equals(cell.Value.ToString(), cell.Text)))
+            bool allCellsCorrect = true;
+            foreach (var cell in cells)
             {
-                bool allCellsCorrect = true;
-                foreach (var cell in cells)
+                if (cells.Cast<SudokuCell>().All(cells => !cell.IsLocked) && !string.Equals(cell.Value.ToString(), cell.Text))
                 {
-                    if (!cell.IsLocked && !string.Equals(cell.Value.ToString(), cell.Text))
-                    {
-                        allCellsCorrect = false;
-                        cell.Font = new Font(DefaultFont.FontFamily, 25, FontStyle.Bold);
-                        cell.ForeColor = Color.Red;
-                        MessageBox.Show("Sorry! Try Again");
-                        break;
-                    }
-                }
-
-                if (allCellsCorrect)
-                {
-                    MessageBox.Show("Congratulations! You won");
+                    allCellsCorrect = false;
+                    cell.Font = new Font(DefaultFont.FontFamily, 25, FontStyle.Bold);
+                    cell.ForeColor = Color.Red;
+                    MessageBox.Show("Sorry! Try Again");
+                    break;
                 }
             }
+
+            if (allCellsCorrect)
+            {
+                MessageBox.Show("Congratulations! You won");
+            }
+
+            ChkAllBtnCount--;
         }
 
         private void ClrButton_Click(object sender, EventArgs e)
@@ -430,7 +431,7 @@ namespace WindowsFormsSudoku02
                         }
                         if (!cells[x, y].IsLocked)
                         {
-                            cells[x, y].Font = new Font(DefaultFont.FontFamily, 20, FontStyle.Bold);
+                            cells[x, y].Font = new Font(DefaultFont.FontFamily, 25, FontStyle.Bold);
                             cells[x, y].ForeColor = Color.DarkGoldenrod;
 
                         }
@@ -455,7 +456,7 @@ namespace WindowsFormsSudoku02
                             if (!cells[row, col].IsLocked)
                             {
                                 cells[row, col].Text = cells[row, col].Value.ToString();
-                                cells[row, col].Font = new Font(DefaultFont.FontFamily, 20, FontStyle.Bold);
+                                cells[row, col].Font = new Font(DefaultFont.FontFamily, 25, FontStyle.Bold);
                                 cells[row, col].ForeColor = Color.DarkGoldenrod;
                             }
                         }
@@ -483,7 +484,7 @@ namespace WindowsFormsSudoku02
                     {
                         cell.Clear();
                         cell.Text = cell.Value.ToString();
-                        cell.Font = new Font(DefaultFont.FontFamily, 20, FontStyle.Bold);
+                        cell.Font = new Font(DefaultFont.FontFamily, 25, FontStyle.Bold);
                         cell.ForeColor = Color.DarkGoldenrod;
                     }
                     cell.FlatStyle = FlatStyle.Popup;
