@@ -35,9 +35,7 @@
             this.beginnerLevel = new System.Windows.Forms.RadioButton();
             this.IntermediateLevel = new System.Windows.Forms.RadioButton();
             this.AdvancedLevel = new System.Windows.Forms.RadioButton();
-            this.difficulty = new System.Windows.Forms.Label();
             this.LoadZeitSudoku = new System.Windows.Forms.Button();
-            this.difficultyZeitDe = new System.Windows.Forms.Label();
             this.hardZeitLvl = new System.Windows.Forms.RadioButton();
             this.normalZeitLvl = new System.Windows.Forms.RadioButton();
             this.easyZeitLvl = new System.Windows.Forms.RadioButton();
@@ -54,8 +52,8 @@
             this.btn8 = new System.Windows.Forms.Button();
             this.btn9 = new System.Windows.Forms.Button();
             this.HintsBtn = new System.Windows.Forms.Button();
-            this.TimerPauseBtn = new System.Windows.Forms.Button();
-            this.TimerResumeBtn = new System.Windows.Forms.Button();
+            this.GamePauseBtn = new System.Windows.Forms.Button();
+            this.GameResumeBtn = new System.Windows.Forms.Button();
             this.lblTimer = new System.Windows.Forms.Label();
             this.lblTimerTxt = new System.Windows.Forms.Label();
             this.ChkAllBtn = new System.Windows.Forms.Button();
@@ -86,7 +84,7 @@
             // 
             this.ClrButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
             this.ClrButton.ForeColor = System.Drawing.Color.Black;
-            this.ClrButton.Location = new System.Drawing.Point(609, 91);
+            this.ClrButton.Location = new System.Drawing.Point(609, 99);
             this.ClrButton.Name = "ClrButton";
             this.ClrButton.Size = new System.Drawing.Size(207, 46);
             this.ClrButton.TabIndex = 2;
@@ -97,8 +95,8 @@
             // NewGameButton
             // 
             this.NewGameButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
-            this.NewGameButton.ForeColor = System.Drawing.Color.DarkGreen;
-            this.NewGameButton.Location = new System.Drawing.Point(609, 293);
+            this.NewGameButton.ForeColor = System.Drawing.Color.Black;
+            this.NewGameButton.Location = new System.Drawing.Point(609, 324);
             this.NewGameButton.Name = "NewGameButton";
             this.NewGameButton.Size = new System.Drawing.Size(207, 63);
             this.NewGameButton.TabIndex = 3;
@@ -110,7 +108,7 @@
             // 
             this.beginnerLevel.AutoSize = true;
             this.beginnerLevel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
-            this.beginnerLevel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(55)))), ((int)(((byte)(76)))));
+            this.beginnerLevel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(112)))), ((int)(((byte)(67)))));
             this.beginnerLevel.Location = new System.Drawing.Point(639, 393);
             this.beginnerLevel.Name = "beginnerLevel";
             this.beginnerLevel.Size = new System.Drawing.Size(97, 24);
@@ -123,7 +121,7 @@
             // 
             this.IntermediateLevel.AutoSize = true;
             this.IntermediateLevel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
-            this.IntermediateLevel.ForeColor = System.Drawing.Color.Blue;
+            this.IntermediateLevel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(110)))), ((int)(((byte)(112)))), ((int)(((byte)(67)))));
             this.IntermediateLevel.Location = new System.Drawing.Point(639, 416);
             this.IntermediateLevel.Name = "IntermediateLevel";
             this.IntermediateLevel.Size = new System.Drawing.Size(131, 24);
@@ -136,7 +134,7 @@
             // 
             this.AdvancedLevel.AutoSize = true;
             this.AdvancedLevel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
-            this.AdvancedLevel.ForeColor = System.Drawing.Color.Red;
+            this.AdvancedLevel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(179)))), ((int)(((byte)(111)))), ((int)(((byte)(71)))));
             this.AdvancedLevel.Location = new System.Drawing.Point(639, 439);
             this.AdvancedLevel.Name = "AdvancedLevel";
             this.AdvancedLevel.Size = new System.Drawing.Size(108, 24);
@@ -145,21 +143,11 @@
             this.AdvancedLevel.Text = "Advanced";
             this.AdvancedLevel.UseVisualStyleBackColor = true;
             // 
-            // difficulty
-            // 
-            this.difficulty.AutoSize = true;
-            this.difficulty.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
-            this.difficulty.Location = new System.Drawing.Point(633, 359);
-            this.difficulty.Name = "difficulty";
-            this.difficulty.Size = new System.Drawing.Size(129, 31);
-            this.difficulty.TabIndex = 8;
-            this.difficulty.Text = "Difficulty";
-            // 
             // LoadZeitSudoku
             // 
             this.LoadZeitSudoku.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
             this.LoadZeitSudoku.ForeColor = System.Drawing.Color.Black;
-            this.LoadZeitSudoku.Location = new System.Drawing.Point(609, 478);
+            this.LoadZeitSudoku.Location = new System.Drawing.Point(609, 509);
             this.LoadZeitSudoku.Name = "LoadZeitSudoku";
             this.LoadZeitSudoku.Size = new System.Drawing.Size(207, 58);
             this.LoadZeitSudoku.TabIndex = 9;
@@ -167,47 +155,11 @@
             this.LoadZeitSudoku.UseVisualStyleBackColor = true;
             this.LoadZeitSudoku.Click += new System.EventHandler(this.LoadZeitSudoku_Click);
             // 
-            // difficultyZeitDe
-            // 
-            this.difficultyZeitDe.AutoSize = true;
-            this.difficultyZeitDe.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
-            this.difficultyZeitDe.Location = new System.Drawing.Point(633, 539);
-            this.difficultyZeitDe.Name = "difficultyZeitDe";
-            this.difficultyZeitDe.Size = new System.Drawing.Size(129, 31);
-            this.difficultyZeitDe.TabIndex = 13;
-            this.difficultyZeitDe.Text = "Difficulty";
-            // 
-            // hardZeitLvl
-            // 
-            this.hardZeitLvl.AutoSize = true;
-            this.hardZeitLvl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
-            this.hardZeitLvl.ForeColor = System.Drawing.Color.IndianRed;
-            this.hardZeitLvl.Location = new System.Drawing.Point(639, 619);
-            this.hardZeitLvl.Name = "hardZeitLvl";
-            this.hardZeitLvl.Size = new System.Drawing.Size(68, 24);
-            this.hardZeitLvl.TabIndex = 12;
-            this.hardZeitLvl.TabStop = true;
-            this.hardZeitLvl.Text = "Hard";
-            this.hardZeitLvl.UseVisualStyleBackColor = true;
-            // 
-            // normalZeitLvl
-            // 
-            this.normalZeitLvl.AutoSize = true;
-            this.normalZeitLvl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
-            this.normalZeitLvl.ForeColor = System.Drawing.Color.Blue;
-            this.normalZeitLvl.Location = new System.Drawing.Point(639, 596);
-            this.normalZeitLvl.Name = "normalZeitLvl";
-            this.normalZeitLvl.Size = new System.Drawing.Size(87, 24);
-            this.normalZeitLvl.TabIndex = 11;
-            this.normalZeitLvl.TabStop = true;
-            this.normalZeitLvl.Text = "Normal";
-            this.normalZeitLvl.UseVisualStyleBackColor = true;
-            // 
             // easyZeitLvl
             // 
             this.easyZeitLvl.AutoSize = true;
             this.easyZeitLvl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
-            this.easyZeitLvl.ForeColor = System.Drawing.Color.Green;
+            this.easyZeitLvl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(112)))), ((int)(((byte)(67)))));
             this.easyZeitLvl.Location = new System.Drawing.Point(639, 573);
             this.easyZeitLvl.Name = "easyZeitLvl";
             this.easyZeitLvl.Size = new System.Drawing.Size(68, 24);
@@ -216,24 +168,37 @@
             this.easyZeitLvl.Text = "Easy";
             this.easyZeitLvl.UseVisualStyleBackColor = true;
             // 
-            // extremeHardZeitLvl
+            // normalZeitLvl
             // 
-            this.extremeHardZeitLvl.AutoSize = true;
-            this.extremeHardZeitLvl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
-            this.extremeHardZeitLvl.ForeColor = System.Drawing.Color.Red;
-            this.extremeHardZeitLvl.Location = new System.Drawing.Point(639, 666);
-            this.extremeHardZeitLvl.Name = "extremeHardZeitLvl";
-            this.extremeHardZeitLvl.Size = new System.Drawing.Size(143, 24);
-            this.extremeHardZeitLvl.TabIndex = 15;
-            this.extremeHardZeitLvl.TabStop = true;
-            this.extremeHardZeitLvl.Text = "Extreme Hard";
-            this.extremeHardZeitLvl.UseVisualStyleBackColor = true;
+            this.normalZeitLvl.AutoSize = true;
+            this.normalZeitLvl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
+            this.normalZeitLvl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(110)))), ((int)(((byte)(112)))), ((int)(((byte)(67)))));
+            this.normalZeitLvl.Location = new System.Drawing.Point(639, 596);
+            this.normalZeitLvl.Name = "normalZeitLvl";
+            this.normalZeitLvl.Size = new System.Drawing.Size(87, 24);
+            this.normalZeitLvl.TabIndex = 11;
+            this.normalZeitLvl.TabStop = true;
+            this.normalZeitLvl.Text = "Normal";
+            this.normalZeitLvl.UseVisualStyleBackColor = true;
+            // 
+            // hardZeitLvl
+            // 
+            this.hardZeitLvl.AutoSize = true;
+            this.hardZeitLvl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
+            this.hardZeitLvl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(168)))), ((int)(((byte)(115)))), ((int)(((byte)(15)))));
+            this.hardZeitLvl.Location = new System.Drawing.Point(639, 619);
+            this.hardZeitLvl.Name = "hardZeitLvl";
+            this.hardZeitLvl.Size = new System.Drawing.Size(68, 24);
+            this.hardZeitLvl.TabIndex = 12;
+            this.hardZeitLvl.TabStop = true;
+            this.hardZeitLvl.Text = "Hard";
+            this.hardZeitLvl.UseVisualStyleBackColor = true;
             // 
             // veryHardZeitLvl
             // 
             this.veryHardZeitLvl.AutoSize = true;
             this.veryHardZeitLvl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
-            this.veryHardZeitLvl.ForeColor = System.Drawing.Color.DarkRed;
+            this.veryHardZeitLvl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(168)))), ((int)(((byte)(61)))), ((int)(((byte)(15)))));
             this.veryHardZeitLvl.Location = new System.Drawing.Point(639, 643);
             this.veryHardZeitLvl.Name = "veryHardZeitLvl";
             this.veryHardZeitLvl.Size = new System.Drawing.Size(112, 24);
@@ -241,6 +206,19 @@
             this.veryHardZeitLvl.TabStop = true;
             this.veryHardZeitLvl.Text = "Very Hard";
             this.veryHardZeitLvl.UseVisualStyleBackColor = true;
+            // 
+            // extremeHardZeitLvl
+            // 
+            this.extremeHardZeitLvl.AutoSize = true;
+            this.extremeHardZeitLvl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
+            this.extremeHardZeitLvl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(23)))), ((int)(((byte)(6)))));
+            this.extremeHardZeitLvl.Location = new System.Drawing.Point(639, 666);
+            this.extremeHardZeitLvl.Name = "extremeHardZeitLvl";
+            this.extremeHardZeitLvl.Size = new System.Drawing.Size(143, 24);
+            this.extremeHardZeitLvl.TabIndex = 15;
+            this.extremeHardZeitLvl.TabStop = true;
+            this.extremeHardZeitLvl.Text = "Extreme Hard";
+            this.extremeHardZeitLvl.UseVisualStyleBackColor = true;
             // 
             // SolveItButton
             // 
@@ -374,32 +352,32 @@
             this.HintsBtn.UseVisualStyleBackColor = true;
             this.HintsBtn.Click += new System.EventHandler(this.HintsBtn_Click);
             // 
-            // TimerPauseBtn
+            // GamePauseBtn
             // 
-            this.TimerPauseBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
-            this.TimerPauseBtn.Location = new System.Drawing.Point(613, 227);
-            this.TimerPauseBtn.Name = "TimerPauseBtn";
-            this.TimerPauseBtn.Size = new System.Drawing.Size(86, 31);
-            this.TimerPauseBtn.TabIndex = 28;
-            this.TimerPauseBtn.TabStop = false;
-            this.TimerPauseBtn.Text = "Pause";
-            this.TimerPauseBtn.UseVisualStyleBackColor = true;
+            this.GamePauseBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
+            this.GamePauseBtn.Location = new System.Drawing.Point(607, 257);
+            this.GamePauseBtn.Name = "GamePauseBtn";
+            this.GamePauseBtn.Size = new System.Drawing.Size(86, 53);
+            this.GamePauseBtn.TabIndex = 28;
+            this.GamePauseBtn.TabStop = false;
+            this.GamePauseBtn.Text = "Pause Game";
+            this.GamePauseBtn.UseVisualStyleBackColor = true;
             // 
-            // TimerResumeBtn
+            // GameResumeBtn
             // 
-            this.TimerResumeBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
-            this.TimerResumeBtn.Location = new System.Drawing.Point(730, 227);
-            this.TimerResumeBtn.Name = "TimerResumeBtn";
-            this.TimerResumeBtn.Size = new System.Drawing.Size(86, 31);
-            this.TimerResumeBtn.TabIndex = 29;
-            this.TimerResumeBtn.Text = "Resume";
-            this.TimerResumeBtn.UseVisualStyleBackColor = true;
+            this.GameResumeBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
+            this.GameResumeBtn.Location = new System.Drawing.Point(724, 257);
+            this.GameResumeBtn.Name = "GameResumeBtn";
+            this.GameResumeBtn.Size = new System.Drawing.Size(86, 53);
+            this.GameResumeBtn.TabIndex = 29;
+            this.GameResumeBtn.Text = "Resume Game";
+            this.GameResumeBtn.UseVisualStyleBackColor = true;
             // 
             // lblTimer
             // 
             this.lblTimer.AutoSize = true;
             this.lblTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTimer.Location = new System.Drawing.Point(621, 169);
+            this.lblTimer.Location = new System.Drawing.Point(615, 199);
             this.lblTimer.Name = "lblTimer";
             this.lblTimer.Size = new System.Drawing.Size(182, 46);
             this.lblTimer.TabIndex = 0;
@@ -409,7 +387,7 @@
             // 
             this.lblTimerTxt.AutoSize = true;
             this.lblTimerTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
-            this.lblTimerTxt.Location = new System.Drawing.Point(671, 140);
+            this.lblTimerTxt.Location = new System.Drawing.Point(665, 170);
             this.lblTimerTxt.Name = "lblTimerTxt";
             this.lblTimerTxt.Size = new System.Drawing.Size(71, 25);
             this.lblTimerTxt.TabIndex = 30;
@@ -435,8 +413,8 @@
             this.Controls.Add(this.ChkAllBtn);
             this.Controls.Add(this.lblTimerTxt);
             this.Controls.Add(this.lblTimer);
-            this.Controls.Add(this.TimerResumeBtn);
-            this.Controls.Add(this.TimerPauseBtn);
+            this.Controls.Add(this.GameResumeBtn);
+            this.Controls.Add(this.GamePauseBtn);
             this.Controls.Add(this.HintsBtn);
             this.Controls.Add(this.btn4);
             this.Controls.Add(this.btn7);
@@ -450,12 +428,10 @@
             this.Controls.Add(this.SolveItButton);
             this.Controls.Add(this.extremeHardZeitLvl);
             this.Controls.Add(this.veryHardZeitLvl);
-            this.Controls.Add(this.difficultyZeitDe);
             this.Controls.Add(this.hardZeitLvl);
             this.Controls.Add(this.normalZeitLvl);
             this.Controls.Add(this.easyZeitLvl);
             this.Controls.Add(this.LoadZeitSudoku);
-            this.Controls.Add(this.difficulty);
             this.Controls.Add(this.AdvancedLevel);
             this.Controls.Add(this.IntermediateLevel);
             this.Controls.Add(this.beginnerLevel);
@@ -481,9 +457,7 @@
         private System.Windows.Forms.RadioButton beginnerLevel;
         private System.Windows.Forms.RadioButton IntermediateLevel;
         private System.Windows.Forms.RadioButton AdvancedLevel;
-        private System.Windows.Forms.Label difficulty;
         private System.Windows.Forms.Button LoadZeitSudoku;
-        private System.Windows.Forms.Label difficultyZeitDe;
         private System.Windows.Forms.RadioButton hardZeitLvl;
         private System.Windows.Forms.RadioButton normalZeitLvl;
         private System.Windows.Forms.RadioButton easyZeitLvl;
@@ -500,8 +474,8 @@
         private System.Windows.Forms.Button btn8;
         private System.Windows.Forms.Button btn9;
         private System.Windows.Forms.Button HintsBtn;
-        private System.Windows.Forms.Button TimerPauseBtn;
-        private System.Windows.Forms.Button TimerResumeBtn;
+        private System.Windows.Forms.Button GamePauseBtn;
+        private System.Windows.Forms.Button GameResumeBtn;
         private System.Windows.Forms.Label lblTimer;
         private System.Windows.Forms.Label lblTimerTxt;
         private System.Windows.Forms.Button ChkAllBtn;

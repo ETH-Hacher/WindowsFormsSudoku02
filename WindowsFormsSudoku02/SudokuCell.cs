@@ -14,7 +14,8 @@ namespace WindowsFormsSudoku02
         public int X { get; set; }
         public int Y { get; set; }
         public bool IsLocked { get; set; }
-        public FontFamily FontFamily { get; internal set; }
+        //public new Font Font { get; set; }
+        //public FontFamily FontFamily { get; internal set; }
 
         public void Clear()
         {

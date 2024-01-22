@@ -22,6 +22,13 @@ namespace WindowsFormsSudoku02
 {
     public partial class SudokuGame : Form
     {
+        int hintsBtnCount;
+        int ChkCellBtnCount;
+        int ChkAllBtnCount;
+        int ZeitSudokuLevel;
+        Random random = new Random();
+        SudokuCell[,] cells = new SudokuCell[9, 9];
+        private SudokuCell selectedCell;
         private bool isZeitSudoku;
 
         public SudokuGame()
@@ -31,41 +38,42 @@ namespace WindowsFormsSudoku02
             StartNewGame();
         }
 
+        public void SetButtonCounts(int hints, int chkCell, int chkAll)
+        {
+            int hintsBtnCount = hints;
+            int ChkCellBtnCount = chkCell;
+            int ChkAllBtnCount = chkAll;
+        }
+
         private void StartNewGame()
         {
             isZeitSudoku = false;
-
             LoadValues();
 
             int hintsCount;
             if (beginnerLevel.Checked)
             {
                 hintsCount = 45;
-                hintsButtonCount = 3;
-                chkButtonCount = 3;
+                SetButtonCounts(3, 3, 3);
             }
             else if (IntermediateLevel.Checked)
             {
                 hintsCount = 30;
-                hintsButtonCount = 4;
-                chkButtonCount = 4;
+                SetButtonCounts(4, 4, 4);
             }
             else if (AdvancedLevel.Checked)
             {
                 hintsCount = 15;
-                hintsButtonCount = 5;
-                chkButtonCount = 5;
+                SetButtonCounts(5, 5, 5);
             }
             else
             {
                 beginnerLevel.Checked = true;
                 hintsCount = 45;
-                hintsButtonCount = 3;
+                SetButtonCounts(3, 3, 3);
             }
             ShowRandomValuesHints(hintsCount);
         }
-
-        Random random = new Random();
 
         private void ShowRandomValuesHints(int hintsCount)
         {
@@ -82,8 +90,6 @@ namespace WindowsFormsSudoku02
             }
         }
 
-
-        SudokuCell[,] cells = new SudokuCell[9, 9];
         private void CreateCells()
         {
             for (int i = 0; i < 9; i++)
@@ -111,8 +117,6 @@ namespace WindowsFormsSudoku02
             }
         }
 
-
-
         private void NumsBtn_MouseClick(object sender, MouseEventArgs e)
         {
             Button btn = sender as Button;
@@ -127,12 +131,9 @@ namespace WindowsFormsSudoku02
             }
         }
 
-        private SudokuCell selectedCell;
-
         private void Cell_ClickedOn(object sender, MouseEventArgs e)
         {
             selectedCell = sender as SudokuCell;
-
             if (selectedCell.IsLocked)
             {
                 selectedCell = null;
@@ -142,6 +143,7 @@ namespace WindowsFormsSudoku02
 
         private void Cell_keyPressed(object sender, KeyPressEventArgs e)
         {
+
             if (selectedCell is null)
             {
                 return;
@@ -160,7 +162,6 @@ namespace WindowsFormsSudoku02
                 selectedCell.Font = new Font(DefaultFont.FontFamily, 25, FontStyle.Bold);
             }
         }
-
 
         private void LoadValues()
         {
@@ -232,40 +233,40 @@ namespace WindowsFormsSudoku02
                         return false;
                 }
             }
-
             return true;
         }
 
-        int chkButtonCount;
-        int hintsButtonCount;
 
         private void ChkCellBtn_Click(object sender, EventArgs e)
         {
-            ChkCellBtn.Click += ChkCellBtn_Click;
-
-            chkButtonCount--;
-            if (chkButtonCount == 0)
+            if (ChkCellBtnCount == 0)
                 ChkCellBtn.Enabled = false;
 
-            // Check if there are remaining attempts for using the Check button
-            if (chkButtonCount > 0)
+            if (ChkCellBtnCount > 0)
             {
-                if (!selectedCell.IsLocked)
+                if (selectedCell != null && selectedCell.Text != "") 
                 {
-                    selectedCell.Font = new Font(DefaultFont.FontFamily, 25, FontStyle.Bold);
-
-                    if (!string.Equals(selectedCell.Value.ToString(), selectedCell.Text))
-                        selectedCell.ForeColor = Color.Red;
-                    else
-                        selectedCell.ForeColor = Color.DarkGoldenrod;
+                    if (!selectedCell.IsLocked)
+                    {
+                        selectedCell.Font = new Font(DefaultFont.FontFamily, 25, FontStyle.Bold);
+                        ChkCellBtnCount--;
+                        if (!string.Equals(selectedCell.Value.ToString(), selectedCell.Text))
+                            selectedCell.ForeColor = Color.Red;
+                        else
+                            selectedCell.ForeColor = Color.DarkGoldenrod;
+                    }
                 }
-
+                else
+                {
+                    MessageBox.Show("Please, select an editable Cell");
+                    return;
+                }
             }
         }
-
         private void ChkAllBtn_Click(object sender, EventArgs e)
         {
-            ChkAllBtn.Click += ChkAllBtn_Click;
+            if (ChkAllBtnCount == 0)
+                ChkAllBtn.Enabled = false;
 
             if (cells.Cast<SudokuCell>().All(cell => cell.IsLocked || string.Equals(cell.Value.ToString(), cell.Text)))
             {
@@ -275,6 +276,9 @@ namespace WindowsFormsSudoku02
                     if (!cell.IsLocked && !string.Equals(cell.Value.ToString(), cell.Text))
                     {
                         allCellsCorrect = false;
+                        cell.Font = new Font(DefaultFont.FontFamily, 25, FontStyle.Bold);
+                        cell.ForeColor = Color.Red;
+                        MessageBox.Show("Sorry! Try Again");
                         break;
                     }
                 }
@@ -299,9 +303,8 @@ namespace WindowsFormsSudoku02
         {
             StartNewGame();
             ChkCellBtn.Enabled = true;
+            ChkAllBtn.Enabled = true;
         }
-
-        int ZeitSudokuLevel;
 
         private void LoadZeitSudoku_Click(object sender, EventArgs e)
         {
@@ -311,38 +314,33 @@ namespace WindowsFormsSudoku02
             if (easyZeitLvl.Checked)
             {
                 ZeitSudokuLevel = 2;
-                hintsButtonCount = 3;
-                chkButtonCount = 3;
+                SetButtonCounts(3, 3, 3);
             }
             else if (normalZeitLvl.Checked)
             {
                 ZeitSudokuLevel = 3;
-                hintsButtonCount = 4;
-                chkButtonCount = 4;
+                SetButtonCounts(4, 4, 4);
             }
             else if (hardZeitLvl.Checked)
             {
                 ZeitSudokuLevel = 4;
-                hintsButtonCount = 5;
-                chkButtonCount = 5;
+                SetButtonCounts(5, 5, 5);
             }
             else if (veryHardZeitLvl.Checked)
             {
                 ZeitSudokuLevel = 5;
-                hintsButtonCount = 6;
-                chkButtonCount = 6;
+                SetButtonCounts(6, 6, 6);
             }
             else if (extremeHardZeitLvl.Checked)
             {
                 ZeitSudokuLevel = 6;
-                hintsButtonCount = 7;
-                chkButtonCount = 7;
+                SetButtonCounts(7, 7, 7);
             }
             else
             {
-                ZeitSudokuLevel = 2;
                 easyZeitLvl.Checked = true;
-                hintsButtonCount = 3;
+                ZeitSudokuLevel = 2;
+                SetButtonCounts(3, 3, 3);
             }
 
             HttpClient client = new HttpClient();
@@ -375,7 +373,7 @@ namespace WindowsFormsSudoku02
         private void HintsBtn_Click(object sender, EventArgs e)
         {
             // Check if there are remaining attempts for using the Hints button
-            if (hintsButtonCount > 0)
+            if (hintsBtnCount > 0)
             {
                 var emptyCells = cells.Cast<SudokuCell>().Where(cell => !cell.IsLocked && string.IsNullOrEmpty(cell.Text)).ToList();
 
@@ -383,14 +381,14 @@ namespace WindowsFormsSudoku02
                 {
                     var randomEmptyCell = emptyCells[random.Next(emptyCells.Count)];
                     randomEmptyCell.Text = randomEmptyCell.Value.ToString();
-                    randomEmptyCell.Font = new Font(randomEmptyCell.FontFamily, 20, FontStyle.Bold);
+                    randomEmptyCell.Font = new Font(randomEmptyCell.Font.FontFamily, 25, FontStyle.Bold);
                     randomEmptyCell.ForeColor = Color.Brown;
 
                     // Decrement the Hints button count
-                    hintsButtonCount--;
+                    hintsBtnCount--;
 
                     // Disable the Hints button after 3 attempts
-                    if (hintsButtonCount == 0)
+                    if (hintsBtnCount == 0)
                         HintsBtn.Enabled = false;
                 }
                 else
@@ -442,44 +440,6 @@ namespace WindowsFormsSudoku02
             }
             return true; // sudoku solved
         }
-
-        //public bool IsValid(int row, int col, int num)
-        //{
-        //    // Check the line
-        //    for (int d = 0; d < 9; d++)
-        //    {
-        //        if (cells[row, d].Value == num)
-        //        {
-        //            return false;
-        //        }
-        //    }
-
-        //    // Check the column
-        //    for (int r = 0; r < 9; r++)
-        //    {
-        //        if (cells[r, col].Value == num)
-        //        {
-        //            return false;
-        //        }
-        //    }
-
-        //    // Check the box
-        //    int sqrt = (int)Math.Sqrt(9);
-        //    int boxRowStart = row - row % sqrt;
-        //    int boxColStart = col - col % sqrt;
-
-        //    for (int r = boxRowStart; r < boxRowStart + sqrt; r++)
-        //    {
-        //        for (int d = boxColStart; d < boxColStart + sqrt; d++)
-        //        {
-        //            if (cells[r, d].Value == num)
-        //            {
-        //                return false;
-        //            }
-        //        }
-        //    }
-        //    return true;
-        //}
 
         private void SolveItButton_Click(object sender, EventArgs e)
         {
